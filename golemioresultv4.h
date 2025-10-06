@@ -2,7 +2,7 @@
 #define GOLEMIORESULTV4_H
 #include <QObject>
 
-#include "golemio/connectiongolemiov4.h"
+#include "connectiongolemiov4.h"
 
 class GolemioResultV4
 {
