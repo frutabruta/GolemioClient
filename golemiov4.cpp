@@ -95,6 +95,11 @@ QVector<ConnectionGolemioV4> GolemioV4::parseDomDocumentDepartures()
         novy.substitutionTextCs=var["substitution_text"]["cs"].toString();
         novy.substitutionTextEn=var["substitution_text"]["en"].toString();
 
+        foreach(QJsonValue icon,var["icons"].toArray())
+        {
+            novy.icons<<icon.toString();
+        }
+
 
         qDebug().noquote()<<"odjezd: "<<novy.routeShortName<<"\t"<<novy.tripHeadsign<<"\t["<<novy.stopPlatformCode<<"]\t"<<novy.departureTimestampMinutes.join(",");
 

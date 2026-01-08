@@ -253,19 +253,28 @@ void Golemio::startDataDownload(int cisloCis)
 
     // QString adresa = "http://www.mpvnet.cz/"+Ids+"/x/"+QString::number(cisloCis)+"?unite=true&ko=12702&pocet=24&t=true";
 
-    QString adresa=mAdresa;
-    adresa+="?cisIds="+QString::number(cisloCis);
-    adresa+=mParametry;
+    if(cisloCis>0)
+    {
+        QString adresa=mAdresa;
+        adresa+="?cisIds="+QString::number(cisloCis);
+        adresa+=mParametry;
 
 
-    qDebug()<<"golemio adresa dotazu: "<<adresa;
-    QNetworkRequest novyPozadavek;
-    novyPozadavek.setSslConfiguration(QSslConfiguration::defaultConfiguration());
+        qDebug()<<"golemio adresa dotazu: "<<adresa;
+        QNetworkRequest novyPozadavek;
+        novyPozadavek.setSslConfiguration(QSslConfiguration::defaultConfiguration());
 
-    novyPozadavek.setUrl(QUrl(adresa));
-    novyPozadavek.setRawHeader("X-Access-Token",mKlic);
+        novyPozadavek.setUrl(QUrl(adresa));
+        novyPozadavek.setRawHeader("X-Access-Token",mKlic);
 
-    manager->get(novyPozadavek);
+        manager->get(novyPozadavek);
+    }
+    else
+    {
+        qDebug()<<"invalid cis number";
+    }
+
+
     //manager->get(QNetworkRequest(QUrl(adresa)));
 }
 
