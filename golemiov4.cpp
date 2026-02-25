@@ -71,7 +71,7 @@ QVector<ConnectionGolemioV4> GolemioV4::parseDomDocumentDepartures()
 
         if(var.toObject().contains("stop") )
         {
-           // novy.stopId=var["stop"]["id"].toString();
+            // novy.stopId=var["stop"]["id"].toString();
             novy.stopPlatformCode=var["stop"]["platform_code"].toString();
         }
 
@@ -80,14 +80,15 @@ QVector<ConnectionGolemioV4> GolemioV4::parseDomDocumentDepartures()
 
         if(var.toObject().contains("trip") )
         {
-          //  novy.tripDirection=var["trip"]["direction"].toString();
+            novy.tripDirection=var["trip"]["direction"].toString();
             novy.tripHeadsign=var["trip"]["headsign"].toString();
             novy.tripId=var["trip"]["id"].toString();
-           // novy.tripIsAtStop=var["trip"]["is_at_stop"].toBool();
-           // novy.tripIsCanceled=var["trip"]["is_canceled"].toBool();
-            novy.tripIsWheelchairAccessible=var["trip"]["is_wheelchair_accessible"].toBool();
-          //  novy.tripIsAirConditioned=var["trip"]["is_air_conditioned"].toBool();
-          //  novy.tripShortName=var["trip"]["short_name"].toString();
+            novy.tripIsAtStop=var["trip"]["is_at_stop"].toBool();
+            novy.tripIsCanceled=var["trip"]["is_canceled"].toBool();
+            novy.tripIsWheelchairAccessible=var["trip"]["is_wheelchair_accessible"].toBool();            
+            novy.tripIsAirConditioned=var["trip"]["is_air_conditioned"].toBool();
+            novy.tripIsGuaranteed=var["trip"]["is_guaranteed_transfer"].toBool();
+            //  novy.tripShortName=var["trip"]["short_name"].toString();
         }
 
         //     novy.t=nodes.at(i).attributes().namedItem("t").nodeValue();

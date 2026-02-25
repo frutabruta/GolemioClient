@@ -13,6 +13,8 @@ public:
     QString substitutionTextCs="";
     QString substitutionTextEn="";
 
+    bool tripIsGuaranteed=false;
+
 };
 
 #endif // CONNECTIONGOLEMIOV4_H
