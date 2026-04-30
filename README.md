@@ -1,6 +1,18 @@
 # GolemioClient
+Qt C++ library for downloading departures from Golemio API (Prague integrated transport)
+
+```
+QT       += network
+```
+
+
+
 
 ## Changelog
+- 20260430_1216
+  - Golemio
+    - split base functions to GolemioRequestHandler
+  - new class GolemioPublicVehiclePositions
 - 20260225_1936
   - GolemioV4::parseDomDocumentDepartures
     - added parsing of is_guaranteed and other parameters

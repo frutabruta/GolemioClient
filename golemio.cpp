@@ -15,12 +15,9 @@
 
 https://forum.qt.io/topic/127049/connecttohostencrypted-tls-initialization-failed/6
 */
-Golemio::Golemio(QByteArray klic)
+Golemio::Golemio(QByteArray klic): GolemioRequestHandler(klic)
 {
-    connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(requestReceived(QNetworkReply*)));
-
-    mKlic=klic ;
-
+    mAdresa="http://api.golemio.cz/v2/pid/departureboards/";
     //adresa+="&minutesBefore=10"
     mParametry+="&minutesAfter=120";
     //adresa+= "&timeFrom=2021-01-21T06%3A00%3A00"
@@ -229,20 +226,7 @@ QVector<StopGolemio> Golemio::parseDomDocumentStops()
     return stopGolemioList;
 }
 
-void Golemio::setKlic(const QByteArray &newKlic)
-{
-    mKlic = newKlic;
-}
 
-void Golemio::setParametry(const QString &newParametry)
-{
-    mParametry = newParametry;
-}
-
-void Golemio::setAdresa(const QString &newAdresa)
-{
-    mAdresa = newAdresa;
-}
 
 
 // zdroj https://stackoverflow.com/questions/7218851/making-an-http-get-under-qt
@@ -279,43 +263,12 @@ void Golemio::startDataDownload(int cisloCis)
 }
 
 //stahovani zastavky vcetne cisla
-void Golemio::startDataDownload(QString golemioAttributes)
-{
-    qDebug()<<Q_FUNC_INFO;
-
-    QString adresa=mAdresa;
-    adresa+=golemioAttributes;
-
-
-    qDebug()<<"golemio adresa dotazu: "<<adresa;
-    QNetworkRequest novyPozadavek;
-    novyPozadavek.setSslConfiguration(QSslConfiguration::defaultConfiguration());
-
-    novyPozadavek.setUrl(QUrl(adresa));
-    novyPozadavek.setRawHeader("X-Access-Token",mKlic);
-
-    manager->get(novyPozadavek);
-    //manager->get(QNetworkRequest(QUrl(adresa)));
-}
 
 
 
 
-QByteArray Golemio::requestReceived(QNetworkReply* replyoo)
-{
-    qDebug()<<Q_FUNC_INFO;
-    QByteArray rawData = replyoo->readAll();
-    // QString textData(rawData);
-    //  qDebug() << textData;
-    qDebug().noquote()<<"kod: "<<replyoo->error()<< "raw: "<<rawData;
-    if(replyoo->error()!=QNetworkReply::NoError)
-    {
-        emit signalError(replyoo->errorString()+" "+rawData.replace("\\",""));
-    }
-    this->stazenaData=rawData;
-    emit stazeniHotovo();
-    return rawData;
-}
+
+
 /*
 QVector<ConnectionMPV> Golemio::vyfiltrujPrestupy(QVector<ConnectionMPV> vstupniPrestupy, Line linka)
 {

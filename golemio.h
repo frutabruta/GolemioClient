@@ -1,20 +1,12 @@
 #ifndef GOLEMIO_H
 #define GOLEMIO_H
-//#include <QMainWindow>
-#include <QObject>
+
 #include <QtXml>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QDebug>
 
-
-//#include <QCoreApplication>
-
-
-//#include <VDV301publisher/VDV301DataStructures/connectionmpv.h>
-//#include <VDV301publisher/VDV301DataStructures/line.h>
 #include "stopgolemio.h"
 #include "connectiongolemio.h"
+#include "golemiorequesthandler.h"
+
 class GolemioInfotext
 {
 
@@ -40,7 +32,7 @@ public:
 };
 
 
-class Golemio: public QObject
+class Golemio : public GolemioRequestHandler
 {
     Q_OBJECT
 public:
@@ -48,17 +40,13 @@ public:
     Golemio(QByteArray klic);
     ~Golemio();
 
-
-    QByteArray stazenaData="";
     //  QByteArray vystupData="";
     // QVector<PrestupMPV> seznamPrestupuMpv;
     QVector<ConnectionGolemio> seznamPrestupuGolemio;
     QVector<StopGolemio> stopGolemioList;
     QVector<GolemioInfotext> golemioInfotextList;
 
-
     void naplnVstupDokument(QByteArray vstup);
-    ;
     void startDataDownload(int cisloCis);
     //QVector<ConnectionMPV> vyfiltrujPrestupy(QVector<ConnectionMPV> vstupniPrestupy, Line linka); //unused
     //  bool jePrestupNaSeznamu(ConnectionMPV prestup, QVector<ConnectionMPV> seznamPrestupu);
@@ -68,31 +56,15 @@ public:
     QVector<StopGolemio> parseDomDocumentStops();
 
     // QVector<ConnectionGolemio> parsujDomDokument();
-    void setKlic(const QByteArray &newKlic);
-
-    void setParametry(const QString &newParametry);
-
-    void setAdresa(const QString &newAdresa);
-
-    void startDataDownload(QString golemioAttributes);
 
 
 protected:
     //instance
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
 
     //promenne
-    QByteArray mKlic="";
-    QString mAdresa="http://api.golemio.cz/v2/pid/departureboards/";
-    QString mParametry="";
+
     QJsonDocument mVstupniJson;
-
-
-private slots:
-    QByteArray requestReceived(QNetworkReply *replyoo);
-signals:
-    void stazeniHotovo ();
-    void signalError(QString errorMessage);
 };
 
 #endif // GOLEMIO_H
