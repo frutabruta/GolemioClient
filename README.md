@@ -2,13 +2,16 @@
 Qt C++ library for downloading departures from Golemio API (Prague integrated transport)
 
 ```
-QT       += network
+QT       += network xml
 ```
 
 
 
 
 ## Changelog
+- 20260504_1842
+  - GolemioPublicVehiclePositions
+    - mAdress fix
 - 20260504_1741
   - GolemioDepartureBoardsV2
     - fix of GolemioRequestHandler::startDataDownload(QString)

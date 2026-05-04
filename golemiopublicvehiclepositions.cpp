@@ -4,7 +4,7 @@
 
 GolemioPublicVehiclePositions::GolemioPublicVehiclePositions(QByteArray klic) : GolemioRequestHandler(klic)
 {
-    mAdresa="https://api.golemio.cz/v2/public/vehiclepositions/";
+    mAddress="https://api.golemio.cz/v2/public/vehiclepositions/";
 
     connect(this,&GolemioRequestHandler::signalReceivedData,this,&GolemioPublicVehiclePositions::slotMessageReceived);
 }
