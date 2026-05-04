@@ -1,11 +1,11 @@
-#include "golemiov4.h"
+#include "golemiodepartureboardsv4.h"
 
-GolemioV4::GolemioV4(const QByteArray key) : GolemioDepartureBoardsV2(key)
+GolemioDepartureBoardsV4::GolemioDepartureBoardsV4(const QByteArray key) : GolemioDepartureBoardsV2(key)
 {
 
 }
 
-QVector<ConnectionGolemioV4> GolemioV4::parseDomDocumentDepartures()
+QVector<ConnectionGolemioV4> GolemioDepartureBoardsV4::parseDomDocumentDepartures()
 {
     qDebug()<<Q_FUNC_INFO;
 

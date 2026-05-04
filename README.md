@@ -9,6 +9,11 @@ QT       += network
 
 
 ## Changelog
+- 20260504_1741
+  - GolemioDepartureBoardsV2
+    - fix of GolemioRequestHandler::startDataDownload(QString)
+  - GolemioV4 renamed to GolemioDepartureBoardsV4
+  
 - 20260506_1653
   - Golemio renamed to GolemioDepartureBoardsV2
   - GolemioDepartureBoardsV2 

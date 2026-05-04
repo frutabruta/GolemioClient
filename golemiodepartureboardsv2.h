@@ -49,6 +49,7 @@ public:
     void fillJsonFromQByteArray();
     void fillJsonFromQByteArray(QByteArray inputData);
     void startDataDownload(int cisloCis);
+    using GolemioRequestHandler::startDataDownload;
     //QVector<ConnectionMPV> vyfiltrujPrestupy(QVector<ConnectionMPV> vstupniPrestupy, Line linka); //unused
     //  bool jePrestupNaSeznamu(ConnectionMPV prestup, QVector<ConnectionMPV> seznamPrestupu);
 
