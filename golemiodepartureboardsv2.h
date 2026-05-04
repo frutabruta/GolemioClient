@@ -1,5 +1,5 @@
-#ifndef GOLEMIO_H
-#define GOLEMIO_H
+#ifndef GOLEMIODEPARTUREBOARDSV2_H
+#define GOLEMIODEPARTUREBOARDSV2_H
 
 #include <QtXml>
 
@@ -32,21 +32,22 @@ public:
 };
 
 
-class Golemio : public GolemioRequestHandler
+class GolemioDepartureBoardsV2 : public GolemioRequestHandler
 {
     Q_OBJECT
 public:
     //konstruktor a destruktor
-    Golemio(QByteArray klic);
-    ~Golemio();
+    GolemioDepartureBoardsV2(QByteArray apiKey);
+    ~GolemioDepartureBoardsV2();
 
     //  QByteArray vystupData="";
     // QVector<PrestupMPV> seznamPrestupuMpv;
-    QVector<ConnectionGolemio> seznamPrestupuGolemio;
+    QVector<ConnectionGolemio> connectionGolemioList;
     QVector<StopGolemio> stopGolemioList;
     QVector<GolemioInfotext> golemioInfotextList;
 
-    void naplnVstupDokument(QByteArray vstup);
+    void fillJsonFromQByteArray();
+    void fillJsonFromQByteArray(QByteArray inputData);
     void startDataDownload(int cisloCis);
     //QVector<ConnectionMPV> vyfiltrujPrestupy(QVector<ConnectionMPV> vstupniPrestupy, Line linka); //unused
     //  bool jePrestupNaSeznamu(ConnectionMPV prestup, QVector<ConnectionMPV> seznamPrestupu);
@@ -58,13 +59,14 @@ public:
     // QVector<ConnectionGolemio> parsujDomDokument();
 
 
+
 protected:
     //instance
 
 
     //promenne
 
-    QJsonDocument mVstupniJson;
+    QJsonDocument mDataJson;
 };
 
-#endif // GOLEMIO_H
+#endif // GOLEMIODEPARTUREBOARDSV2_H

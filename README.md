@@ -9,6 +9,12 @@ QT       += network
 
 
 ## Changelog
+- 20260506_1653
+  - Golemio renamed to GolemioDepartureBoardsV2
+  - GolemioDepartureBoardsV2 
+    - functions translated to English
+  - GolemioRequestHandler
+    - some functions translated to English
 - 20260430_1216
   - Golemio
     - split base functions to GolemioRequestHandler

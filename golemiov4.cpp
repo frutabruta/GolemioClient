@@ -1,6 +1,6 @@
 #include "golemiov4.h"
 
-GolemioV4::GolemioV4(const QByteArray key) : Golemio(key)
+GolemioV4::GolemioV4(const QByteArray key) : GolemioDepartureBoardsV2(key)
 {
 
 }
@@ -12,11 +12,11 @@ QVector<ConnectionGolemioV4> GolemioV4::parseDomDocumentDepartures()
     //   qDebug()<<"vstup:"<<vstupniJson["departures"];
     seznamPrestupuGolemio.clear();
 
-    if(!mVstupniJson["departures"].isArray())
+    if(!mDataJson["departures"].isArray())
     {
         return seznamPrestupuGolemio;
     }
-    QJsonArray odjezdy=mVstupniJson["departures"].toArray();
+    QJsonArray odjezdy=mDataJson["departures"].toArray();
 
     if(odjezdy.isEmpty())
     {

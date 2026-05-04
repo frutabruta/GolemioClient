@@ -1,12 +1,12 @@
 #ifndef GOLEMIOV4_H
 #define GOLEMIOV4_H
 
-#include "golemio.h"
+#include "golemiodepartureboardsv2.h"
 
 #include "connectiongolemiov4.h"
 
 
-class GolemioV4 : public Golemio
+class GolemioV4 : public GolemioDepartureBoardsV2
 {
 public:
     GolemioV4(const QByteArray key);

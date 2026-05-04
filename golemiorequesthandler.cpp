@@ -2,24 +2,8 @@
 
 GolemioRequestHandler::GolemioRequestHandler(QByteArray klic)
 {
-    mKlic = klic;
+    mKey = klic;
     connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(requestReceived(QNetworkReply*)));
-}
-
-
-void GolemioRequestHandler::setKlic(const QByteArray &newKlic)
-{
-    mKlic = newKlic;
-}
-
-void GolemioRequestHandler::setParametry(const QString &newParametry)
-{
-    mParametry = newParametry;
-}
-
-void GolemioRequestHandler::setAdresa(const QString &newAdresa)
-{
-    mAdresa = newAdresa;
 }
 
 
@@ -34,7 +18,7 @@ QByteArray GolemioRequestHandler::requestReceived(QNetworkReply* receivedReply)
     {
         emit signalError(receivedReply->errorString()+" "+rawData.replace("\\",""));
     }
-    this->stazenaData=rawData;
+    this->downloadedData=rawData;
     emit stazeniHotovo();
     emit signalReceivedData(rawData);
     return rawData;
@@ -44,15 +28,30 @@ void GolemioRequestHandler::startDataDownload(QString golemioAttributes)
 {
     qDebug()<<Q_FUNC_INFO;
 
-    QString completeAddress=mAdresa+golemioAttributes;
+    QString completeAddress=mAddress+golemioAttributes;
 
     qDebug()<<"golemio request address: "<<completeAddress;
     QNetworkRequest newRequest;
     newRequest.setSslConfiguration(QSslConfiguration::defaultConfiguration());
 
     newRequest.setUrl(QUrl(completeAddress));
-    newRequest.setRawHeader("X-Access-Token",mKlic);
+    newRequest.setRawHeader("X-Access-Token",mKey);
 
     manager->get(newRequest);
     //manager->get(QNetworkRequest(QUrl(adresa)));
+}
+
+void GolemioRequestHandler::setParameters(const QString &newParameters)
+{
+    mParameters = newParameters;
+}
+
+void GolemioRequestHandler::setAddress(const QString &newAddress)
+{
+    mAddress = newAddress;
+}
+
+void GolemioRequestHandler::setKey(const QByteArray &newKey)
+{
+    mKey = newKey;
 }

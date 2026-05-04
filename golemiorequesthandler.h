@@ -14,19 +14,19 @@ class GolemioRequestHandler : public QObject
 public:
     GolemioRequestHandler(QByteArray klic);
 
-    void setKlic(const QByteArray &newKlic);
-    void setParametry(const QString &newParametry);
-    void setAdresa(const QString &newAdresa);
-
     void startDataDownload(QString golemioAttributes);
 
+    void setAddress(const QString &newAddress);
+    void setParameters(const QString &newParameters);
+    void setKey(const QByteArray &newKey);
+
 protected:
-    QByteArray stazenaData="";
+    QByteArray downloadedData="";
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
 
-    QByteArray mKlic="";
-    QString mAdresa="http://api.golemio.cz/v2/pid/departureboards/";
-    QString mParametry="";
+    QByteArray mKey="";
+    QString mAddress="http://api.golemio.cz/v2/pid/departureboards/";
+    QString mParameters="";
 
 protected slots:
     QByteArray requestReceived(QNetworkReply *receivedReply);
