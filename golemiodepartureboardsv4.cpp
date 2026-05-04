@@ -2,7 +2,7 @@
 
 GolemioDepartureBoardsV4::GolemioDepartureBoardsV4(const QByteArray key) : GolemioDepartureBoardsV2(key)
 {
-
+    mAddress="https://api.golemio.cz/v4/pid/transferboards";
 }
 
 QVector<ConnectionGolemioV4> GolemioDepartureBoardsV4::parseDomDocumentDepartures()

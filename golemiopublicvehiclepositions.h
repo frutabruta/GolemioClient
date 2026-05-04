@@ -8,11 +8,11 @@
 #include "golemiorequesthandler.h"
 
 
-class VehiclePositionResult
+class VehiclePositionResultPublic
 {
 public:
-    VehiclePositionResult();
-    VehiclePositionResult(QJsonDocument mVstupniJson);
+    VehiclePositionResultPublic();
+    VehiclePositionResultPublic(QJsonDocument mVstupniJson);
 
     QPointF coordinates;
     QString gtfsTripId="";
@@ -32,12 +32,12 @@ class GolemioPublicVehiclePositions : public GolemioRequestHandler
     Q_OBJECT
 public:
     GolemioPublicVehiclePositions(QByteArray klic);
-    VehiclePositionResult parseMessage(QByteArray receivedMessage);
+    VehiclePositionResultPublic parseMessage(QByteArray receivedMessage);
 private slots:
     void slotMessageReceived(QByteArray message);
 private:
 signals:
-    void signalDataParsed(VehiclePositionResult result);
+    void signalDataParsed(VehiclePositionResultPublic result);
 };
 
 #endif // GOLEMIOPUBLICVEHICLEPOSITIONS_H

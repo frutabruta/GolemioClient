@@ -9,9 +9,18 @@ QT       += network xml
 
 
 ## Changelog
+- 20260504_2310
+  - GolemioDepartureBoardsV4 
+    - default mAdress fix
+  - added GolemioVehiclePositions (WIP)
+    - GTFS tripId based requests, no parsing
+  -  GolemioPublicVehiclePositions
+  - VehiclePositionResult renamed to VehiclePositionResultPublic
+  
 - 20260504_1842
   - GolemioPublicVehiclePositions
     - mAdress fix
+  
 - 20260504_1741
   - GolemioDepartureBoardsV2
     - fix of GolemioRequestHandler::startDataDownload(QString)
