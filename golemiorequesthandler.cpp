@@ -1,19 +1,21 @@
 #include "golemiorequesthandler.h"
 
+Q_LOGGING_CATEGORY(GolemioRequestHandlerLog, "GolemioRequestHandler")
+
 GolemioRequestHandler::GolemioRequestHandler(QByteArray klic)
 {
     mKey = klic;
-    connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(requestReceived(QNetworkReply*)));
+    connect(&manager,&QNetworkAccessManager::finished,this,&GolemioRequestHandler::requestReceived);
 }
 
 
 QByteArray GolemioRequestHandler::requestReceived(QNetworkReply* receivedReply)
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioRequestHandlerLog)<<Q_FUNC_INFO;
     QByteArray rawData = receivedReply->readAll();
     // QString textData(rawData);
-    //  qDebug() << textData;
-    qDebug().noquote()<<"kod: "<<receivedReply->error()<< "raw: "<<rawData;
+    //  qCDebug(GolemioRequestHandlerLog) << textData;
+    qCDebug(GolemioRequestHandlerLog).noquote()<<"kod: "<<receivedReply->error()<< "raw: "<<rawData;
     if(receivedReply->error()!=QNetworkReply::NoError)
     {
         emit signalError(receivedReply->errorString()+" "+rawData.replace("\\",""));
@@ -26,18 +28,18 @@ QByteArray GolemioRequestHandler::requestReceived(QNetworkReply* receivedReply)
 
 void GolemioRequestHandler::startDataDownload(QString golemioAttributes)
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioRequestHandlerLog)<<Q_FUNC_INFO;
 
     QString completeAddress=mAddress+golemioAttributes;
 
-    qDebug()<<"golemio request address: "<<completeAddress;
+    qCDebug(GolemioRequestHandlerLog)<<"golemio request address: "<<completeAddress;
     QNetworkRequest newRequest;
     newRequest.setSslConfiguration(QSslConfiguration::defaultConfiguration());
 
     newRequest.setUrl(QUrl(completeAddress));
     newRequest.setRawHeader("X-Access-Token",mKey);
 
-    manager->get(newRequest);
+    manager.get(newRequest);
     //manager->get(QNetworkRequest(QUrl(adresa)));
 }
 

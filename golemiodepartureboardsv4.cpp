@@ -1,5 +1,7 @@
 #include "golemiodepartureboardsv4.h"
 
+Q_LOGGING_CATEGORY(GolemioDepartureBoardsV4Log, "GolemioDepartureBoardsV4")
+
 GolemioDepartureBoardsV4::GolemioDepartureBoardsV4(const QByteArray key) : GolemioDepartureBoardsV2(key)
 {
     mAddress="https://api.golemio.cz/v4/pid/transferboards";
@@ -7,9 +9,9 @@ GolemioDepartureBoardsV4::GolemioDepartureBoardsV4(const QByteArray key) : Golem
 
 QVector<ConnectionGolemioV4> GolemioDepartureBoardsV4::parseDomDocumentDepartures()
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioDepartureBoardsV4Log)<<Q_FUNC_INFO;
 
-    //   qDebug()<<"vstup:"<<vstupniJson["departures"];
+    //   qCDebug(GolemioDepartureBoardsV4Log)<<"vstup:"<<vstupniJson["departures"];
     seznamPrestupuGolemio.clear();
 
     if(!mDataJson["departures"].isArray())
@@ -102,7 +104,7 @@ QVector<ConnectionGolemioV4> GolemioDepartureBoardsV4::parseDomDocumentDeparture
         }
 
 
-        qDebug().noquote()<<"odjezd: "<<novy.routeShortName<<"\t"<<novy.tripHeadsign<<"\t["<<novy.stopPlatformCode<<"]\t"<<novy.departureTimestampMinutes.join(",");
+        qCDebug(GolemioDepartureBoardsV4Log).noquote()<<"odjezd: "<<novy.routeShortName<<"\t"<<novy.tripHeadsign<<"\t["<<novy.stopPlatformCode<<"]\t"<<novy.departureTimestampMinutes.join(",");
 
         seznamPrestupuGolemio.append(novy);
 

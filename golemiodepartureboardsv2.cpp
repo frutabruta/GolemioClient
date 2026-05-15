@@ -15,6 +15,9 @@
 
 https://forum.qt.io/topic/127049/connecttohostencrypted-tls-initialization-failed/6
 */
+
+Q_LOGGING_CATEGORY(GolemioDepartureBoardsV2Log, "GolemioDepartureBoardsV2")
+
 GolemioDepartureBoardsV2::GolemioDepartureBoardsV2(QByteArray apiKey): GolemioRequestHandler(apiKey)
 {
     mAddress="http://api.golemio.cz/v2/pid/departureboards/";

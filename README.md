@@ -9,6 +9,12 @@ QT       += network xml
 
 
 ## Changelog
+- 20260515_1811
+  - added QLoggingCategory
+    - GolemioDepartureBoardsV2
+    - GolemioDepartureBoardsV4
+    - GolemioRequestHandler
+  
 - 20260504_2310
   - GolemioDepartureBoardsV4 
     - default mAdress fix

@@ -6,6 +6,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QDebug>
+#include <QLoggingCategory>
 
 
 class GolemioRequestHandler : public QObject
@@ -22,7 +23,8 @@ public:
 
 protected:
     QByteArray downloadedData="";
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    //QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkAccessManager manager;
 
     QByteArray mKey="";
     QString mAddress="http://api.golemio.cz/v2/pid/departureboards/";
