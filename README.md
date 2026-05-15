@@ -1,4 +1,4 @@
-# GolemioClient
+- 20260515_1811# GolemioClient
 Qt C++ library for downloading departures from Golemio API (Prague integrated transport)
 
 ```
@@ -9,6 +9,9 @@ QT       += network xml
 
 
 ## Changelog
+- 20260515_1819
+  -  GolemioDepartureBoardsV2 previous commit fix
+  
 - 20260515_1811
   - added QLoggingCategory
     - GolemioDepartureBoardsV2

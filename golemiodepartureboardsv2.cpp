@@ -41,21 +41,21 @@ GolemioDepartureBoardsV2::~GolemioDepartureBoardsV2()
 
 void GolemioDepartureBoardsV2::fillJsonFromQByteArray()
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioDepartureBoardsV2Log)<<Q_FUNC_INFO;
     fillJsonFromQByteArray(downloadedData);
 }
 
 void GolemioDepartureBoardsV2::fillJsonFromQByteArray(QByteArray inputData)
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioDepartureBoardsV2Log)<<Q_FUNC_INFO;
     mDataJson=mDataJson.fromJson(inputData);
 }
 
 QVector<ConnectionGolemio> GolemioDepartureBoardsV2::parseDomDocumentDepartures()
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioDepartureBoardsV2Log)<<Q_FUNC_INFO;
 
-    //   qDebug()<<"vstup:"<<vstupniJson["departures"];
+    //   qCDebug(GolemioDepartureBoardsV2Log)<<"vstup:"<<vstupniJson["departures"];
     connectionGolemioList.clear();
 
     if(!mDataJson["departures"].isArray())
@@ -134,7 +134,7 @@ QVector<ConnectionGolemio> GolemioDepartureBoardsV2::parseDomDocumentDepartures(
 
 
 
-        qDebug().noquote()<<"odjezd: "<<connectionGolemio.routeShortName<<"\t"<<connectionGolemio.tripHeadsign<<"\t["<<connectionGolemio.stopPlatformCode<<"]\t"<<connectionGolemio.departureTimestampMinutes;
+        qCDebug(GolemioDepartureBoardsV2Log).noquote()<<"odjezd: "<<connectionGolemio.routeShortName<<"\t"<<connectionGolemio.tripHeadsign<<"\t["<<connectionGolemio.stopPlatformCode<<"]\t"<<connectionGolemio.departureTimestampMinutes;
 
         connectionGolemioList.append(connectionGolemio);
 
@@ -149,9 +149,9 @@ QVector<ConnectionGolemio> GolemioDepartureBoardsV2::parseDomDocumentDepartures(
 
 QVector<GolemioInfotext> GolemioDepartureBoardsV2::parseDomDocumentInfotexts()
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioDepartureBoardsV2Log)<<Q_FUNC_INFO;
 
-    //   qDebug()<<"vstup:"<<vstupniJson["departures"];
+    //   qCDebug(GolemioDepartureBoardsV2Log)<<"vstup:"<<vstupniJson["departures"];
     golemioInfotextList.clear();
 
     if(!mDataJson["infotexts"].isArray())
@@ -197,9 +197,9 @@ QVector<GolemioInfotext> GolemioDepartureBoardsV2::parseDomDocumentInfotexts()
 
 QVector<StopGolemio> GolemioDepartureBoardsV2::parseDomDocumentStops()
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioDepartureBoardsV2Log)<<Q_FUNC_INFO;
 
-    //   qDebug()<<"vstup:"<<vstupniJson["departures"];
+    //   qCDebug(GolemioDepartureBoardsV2Log)<<"vstup:"<<vstupniJson["departures"];
 
     QVector<StopGolemio> stopGolemioList;
 
@@ -234,7 +234,7 @@ QVector<StopGolemio> GolemioDepartureBoardsV2::parseDomDocumentStops()
 
 void GolemioDepartureBoardsV2::startDataDownload(int cisId)
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioDepartureBoardsV2Log)<<Q_FUNC_INFO;
 
     // QString adresa = "http://www.mpvnet.cz/"+Ids+"/x/"+QString::number(cisloCis)+"?unite=true&ko=12702&pocet=24&t=true";
 
@@ -244,7 +244,7 @@ void GolemioDepartureBoardsV2::startDataDownload(int cisId)
         address+="?cisIds="+QString::number(cisId);
         address+=mParameters;
 
-        qDebug()<<"golemio adresa dotazu: "<<address;
+        qCDebug(GolemioDepartureBoardsV2Log)<<"golemio adresa dotazu: "<<address;
         QNetworkRequest newRequest;
         newRequest.setSslConfiguration(QSslConfiguration::defaultConfiguration());
 
@@ -255,7 +255,7 @@ void GolemioDepartureBoardsV2::startDataDownload(int cisId)
     }
     else
     {
-        qDebug()<<"invalid cis number";
+        qCDebug(GolemioDepartureBoardsV2Log)<<"invalid cis number";
     }
 
 
@@ -272,7 +272,7 @@ void GolemioDepartureBoardsV2::startDataDownload(int cisId)
 /*
 QVector<ConnectionMPV> Golemio::vyfiltrujPrestupy(QVector<ConnectionMPV> vstupniPrestupy, Line linka)
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioDepartureBoardsV2Log)<<Q_FUNC_INFO;
     QVector<ConnectionMPV> vyfiltrovanePrestupy;
 
     foreach(ConnectionMPV aktualniPrestup, vstupniPrestupy)
@@ -291,7 +291,7 @@ QVector<ConnectionMPV> Golemio::vyfiltrujPrestupy(QVector<ConnectionMPV> vstupni
 
 bool Golemio::jePrestupNaSeznamu(ConnectionMPV prestup, QVector<ConnectionMPV> seznamPrestupu)
 {
-    qDebug()<<Q_FUNC_INFO;
+    qCDebug(GolemioDepartureBoardsV2Log)<<Q_FUNC_INFO;
 
 
     foreach(ConnectionMPV testPrestup, seznamPrestupu)
