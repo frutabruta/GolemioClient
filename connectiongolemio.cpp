@@ -152,6 +152,10 @@ Connection ConnectionGolemio::toConnection()
 
 */
 
+QString ConnectionGolemio::dumpToQStringLine()
+{
+    return routeShortName+"\t"+tripHeadsign+"\t["+stopPlatformCode+"]\t"+departureTimestampMinutes;
+}
 
 QDateTime  ConnectionGolemio::qStringDoQDateTime(QString vstup)
 {

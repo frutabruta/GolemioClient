@@ -9,6 +9,9 @@ QT       += network xml
 
 
 ## Changelog
+- 20260518_1125
+  - added ConnectionGolemio::dumpToQStringLine
+  
 - 20260515_1819
   -  GolemioDepartureBoardsV2 previous commit fix
   

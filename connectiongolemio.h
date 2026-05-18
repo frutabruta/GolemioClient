@@ -49,12 +49,11 @@ public:
     
     bool tripIsAtStop=false;
 
-
+    QString dumpToQStringLine();
     QString minutesToArrival();
     //  Connection toConnection();
     static QDateTime qStringDoQDateTime(QString vstup);
-    static QString qDateTimeToString(QDateTime vstup);
-
+    static QString qDateTimeToString(QDateTime vstup);  
 };
 
 #endif // CONNECTIONGOLEMIO_H

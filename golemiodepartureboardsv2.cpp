@@ -69,13 +69,8 @@ QVector<ConnectionGolemio> GolemioDepartureBoardsV2::parseDomDocumentDepartures(
         return connectionGolemioList;
     }
 
-
-
-    foreach (QJsonValue var, departuresArray) {
-
-
-        //var[""][""]
-
+    foreach (QJsonValue var, departuresArray)
+    {
         ConnectionGolemio connectionGolemio;
         connectionGolemio.arrivalTimestampPredicted=ConnectionGolemio::qStringDoQDateTime(var["arrival_timestamp"]["predicted"].toString());
         connectionGolemio.arrivalTimestampScheduled=ConnectionGolemio::qStringDoQDateTime(var["arrival_timestamp"]["scheduled"].toString());
@@ -97,7 +92,6 @@ QVector<ConnectionGolemio> GolemioDepartureBoardsV2::parseDomDocumentDepartures(
         connectionGolemio.lastStopName=(var["last_stop"]["name"].toString());
         connectionGolemio.lastStopName=(var["last_stop"]["id"].toString());
 
-
         if(var.toObject().contains("route") )
         {
             connectionGolemio.routeShortName=var["route"]["short_name"].toString();
@@ -107,15 +101,11 @@ QVector<ConnectionGolemio> GolemioDepartureBoardsV2::parseDomDocumentDepartures(
             connectionGolemio.routeIsSubstituteTransport=var["route"]["is_substitute_transport"].toBool();
         }
 
-
         if(var.toObject().contains("stop") )
         {
             connectionGolemio.stopId=var["stop"]["id"].toString();
             connectionGolemio.stopPlatformCode=var["stop"]["platform_code"].toString();
         }
-
-
-
 
         if(var.toObject().contains("trip") )
         {
@@ -128,20 +118,9 @@ QVector<ConnectionGolemio> GolemioDepartureBoardsV2::parseDomDocumentDepartures(
             connectionGolemio.tripIsAirConditioned=var["trip"]["is_air_conditioned"].toBool();
             connectionGolemio.tripShortName=var["trip"]["short_name"].toString();
         }
-
-        //     novy.t=nodes.at(i).attributes().namedItem("t").nodeValue();
-
-
-
-
-        qCDebug(GolemioDepartureBoardsV2Log).noquote()<<"odjezd: "<<connectionGolemio.routeShortName<<"\t"<<connectionGolemio.tripHeadsign<<"\t["<<connectionGolemio.stopPlatformCode<<"]\t"<<connectionGolemio.departureTimestampMinutes;
-
+        qCDebug(GolemioDepartureBoardsV2Log).noquote()<<connectionGolemio.dumpToQStringLine();
         connectionGolemioList.append(connectionGolemio);
-
     }
-
-
-
 
     return connectionGolemioList;
 }
@@ -183,16 +162,10 @@ QVector<GolemioInfotext> GolemioDepartureBoardsV2::parseDomDocumentInfotexts()
         }
 
         golemioInfotextList.append(golemioInfotext);
-
     }
-
-
-
 
     return golemioInfotextList;
 }
-
-
 
 
 QVector<StopGolemio> GolemioDepartureBoardsV2::parseDomDocumentStops()
@@ -206,6 +179,7 @@ QVector<StopGolemio> GolemioDepartureBoardsV2::parseDomDocumentStops()
     QJsonArray stopArray=mDataJson["stops"].toArray();
 
     stopGolemioList.clear();
+
     foreach(QJsonValue var, stopArray)
     {
         StopGolemio stopGolemio;
@@ -226,8 +200,6 @@ QVector<StopGolemio> GolemioDepartureBoardsV2::parseDomDocumentStops()
 
     return stopGolemioList;
 }
-
-
 
 
 // zdroj https://stackoverflow.com/questions/7218851/making-an-http-get-under-qt
@@ -251,19 +223,13 @@ void GolemioDepartureBoardsV2::startDataDownload(int cisId)
         newRequest.setUrl(QUrl(address));
         newRequest.setRawHeader("X-Access-Token",mKey);
 
-        manager->get(newRequest);
+        manager.get(newRequest);
     }
     else
     {
         qCDebug(GolemioDepartureBoardsV2Log)<<"invalid cis number";
     }
-
-
-    //manager->get(QNetworkRequest(QUrl(adresa)));
 }
-
-//stahovani zastavky vcetne cisla
-
 
 
 
@@ -347,24 +313,6 @@ QString GolemioInfotext::displayTypeToQString(GolemioInfotext::DisplayType input
         return "";
         break;
     }
-
-
-
-    /*
-    if(input=="general")
-    {
-        return GolemioInfotext::DisplayTypeGeneral;
-    }
-    else if(input=="general-alternate")
-    {
-        return GolemioInfotext::DisplayTypeGeneralAlternate;
-    }
-    else if(input=="inline")
-    {
-        return GolemioInfotext::DisplayTypeInline;
-    }
-
-    return GolemioInfotext::DisplayTypeGeneral;    */
 }
 
 
