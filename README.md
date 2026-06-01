@@ -7,6 +7,9 @@ QT       += network xml
 
 
 ## Changelog
+- 20260601_1442
+  - GolemioVehiclePositions::slotMessageReceived(
+      - empty result fix
 - 20260601_1309
   - GolemioVehiclePositions::parseMessage
     - changed result to vector

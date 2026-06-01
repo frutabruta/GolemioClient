@@ -13,10 +13,20 @@ void GolemioVehiclePositions::slotMessageReceived(QByteArray message)
 {
     QVector<VehiclePositionResult> result=parseMessage(message);
 
+    if(!result.isEmpty())
+    {
+        qDebug().noquote()<<result.first().dumpToQString();
+    }
+    else
+    {
+        qDebug()<<" empty results"  ;
+    }
 
-    qDebug().noquote()<<result.first().dumpToQString();
+    if(!result.isEmpty())
+    {
+        emit signalDataParsed(result.first());
+    }
 
-    emit signalDataParsed(result.first());
 }
 
 
