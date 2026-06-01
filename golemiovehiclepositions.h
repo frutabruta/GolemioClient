@@ -11,6 +11,8 @@ class VehiclePositionResult
 public:
     VehiclePositionResult();
     VehiclePositionResult(QJsonDocument mVstupniJson);
+    VehiclePositionResult(QJsonObject mVstupniJson);
+
 
     //QPointF coordinates;
     QString gtfsTripId="";
@@ -18,7 +20,9 @@ public:
     // QString originRouteName="";
     // int runNumber=0;
     // QString tripHeadsign="";
-    // QString routeType="";
+    QString statePosition="";
+    QString lastStopGtfsId="";
+     int tripGtfsRouteType=0;
 
     // QString dumpToQString();
     QString dumpToQString();
@@ -33,7 +37,7 @@ class GolemioVehiclePositions : public GolemioRequestHandler
     Q_OBJECT
 public:
     GolemioVehiclePositions(QByteArray key);
-    VehiclePositionResult parseMessage(QByteArray receivedMessage);
+    QVector<VehiclePositionResult> parseMessage(QByteArray receivedMessage);
 public slots:
     void slotMessageReceived(QByteArray message);
 

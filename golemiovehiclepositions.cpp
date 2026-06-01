@@ -1,5 +1,5 @@
 #include "golemiovehiclepositions.h"
-
+#include <QJsonArray>
 
 GolemioVehiclePositions::GolemioVehiclePositions(QByteArray klic) : GolemioRequestHandler(klic)
 {
@@ -11,24 +11,32 @@ GolemioVehiclePositions::GolemioVehiclePositions(QByteArray klic) : GolemioReque
 
 void GolemioVehiclePositions::slotMessageReceived(QByteArray message)
 {
-    VehiclePositionResult result=parseMessage(message);
+    QVector<VehiclePositionResult> result=parseMessage(message);
 
 
-    qDebug().noquote()<<result.dumpToQString();
+    qDebug().noquote()<<result.first().dumpToQString();
 
-    emit signalDataParsed(result);
+    emit signalDataParsed(result.first());
 }
 
 
-VehiclePositionResult GolemioVehiclePositions::parseMessage(QByteArray receivedMessage)
+QVector<VehiclePositionResult> GolemioVehiclePositions::parseMessage(QByteArray receivedMessage)
 {
-    VehiclePositionResult result;
+    QVector<VehiclePositionResult> resultList;
 
     QJsonDocument mVstupniJson=QJsonDocument::fromJson(receivedMessage);
+    QJsonObject root = mVstupniJson.object();
 
-    result=VehiclePositionResult(mVstupniJson);
+    QJsonArray featuresArray = root["features"].toArray();
 
-    return result;
+    foreach (QJsonValue selectedObject, featuresArray)
+    {
+        VehiclePositionResult result(selectedObject.toObject());
+        resultList<<result;
+    }
+
+
+    return resultList;
 }
 
 
@@ -51,9 +59,43 @@ VehiclePositionResult::VehiclePositionResult(QJsonDocument mVstupniJson)
     */
 }
 
+VehiclePositionResult::VehiclePositionResult(QJsonObject mVstupniJson)
+{
+    QJsonValue properties=mVstupniJson["properties"];
+
+    QJsonValue trip=properties["trip"];
+
+    QJsonValue lastPosition=properties["last_position"];
+
+    gtfsTripId=trip["gtfs"]["trip_id"].toString();
+    tripGtfsRouteType=trip["gtfs"]["route_type"].toInt();
+
+    statePosition=lastPosition["state_position"].toString();
+    lastStopGtfsId=lastPosition["last_stop"]["id"].toString();
+    /*
+    routeShortName=mVstupniJson["route_short_name"].toString();
+    originRouteName=mVstupniJson["origin_route_name"].toString();
+    runNumber=mVstupniJson["run_number"].toInt();
+    tripHeadsign=mVstupniJson["trip_headsign"].toString();
+    //result.=mVstupniJson[""].toString();
+    coordinates=geometryToQPointF(mVstupniJson["geometry"]);
+    */
+
+}
+
 QString VehiclePositionResult::dumpToQString()
 {
     QString result;
+
+    result+="gtfs_trip_id: "+gtfsTripId+"\n";
+
+    result+="state postition:: "+statePosition+"\n";
+
+    result+="route_type: "+QString::number(tripGtfsRouteType)+"\n";
+    result+="last stop id: "+lastStopGtfsId+"\n";
+
+    QString tripGtfsRouteType="";
+
     /*
     result+="gtfs_trip_id: "+gtfsTripId+"\n";
     result+="route_type: "+routeType+"\n";

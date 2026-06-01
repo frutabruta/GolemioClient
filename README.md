@@ -1,4 +1,4 @@
-- 20260515_1811# GolemioClient
+# GolemioClient
 Qt C++ library for downloading departures from Golemio API (Prague integrated transport)
 
 ```
@@ -6,9 +6,11 @@ QT       += network xml
 ```
 
 
-
-
 ## Changelog
+- 20260601_1309
+  - GolemioVehiclePositions::parseMessage
+    - changed result to vector
+  
 - 20260518_1125
   - added ConnectionGolemio::dumpToQStringLine
   
