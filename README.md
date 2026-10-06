@@ -7,8 +7,12 @@ QT       += network xml
 
 
 ## Changelog
+- 20261006_2127
+  - added startDataDownloadCompleteAddress
+  - stazeniHotovo  renamed to signalDownloadFinished
+
 - 20260601_1442
-  - GolemioVehiclePositions::slotMessageReceived(
+  - GolemioVehiclePositions::slotMessageReceived
       - empty result fix
 - 20260601_1309
   - GolemioVehiclePositions::parseMessage

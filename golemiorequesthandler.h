@@ -13,7 +13,7 @@ class GolemioRequestHandler : public QObject
 {
     Q_OBJECT
 public:
-    GolemioRequestHandler(QByteArray klic);
+    GolemioRequestHandler(QByteArray key);
 
     void startDataDownload(QString golemioAttributes);
 
@@ -21,6 +21,7 @@ public:
     void setParameters(const QString &newParameters);
     void setKey(const QByteArray &newKey);
 
+    void startDataDownloadCompleteAddress(QString completeAddress);
 protected:
     QByteArray downloadedData="";
     //QNetworkAccessManager *manager = new QNetworkAccessManager(this);
@@ -34,7 +35,7 @@ protected slots:
     QByteArray requestReceived(QNetworkReply *receivedReply);
 
 signals:
-    void stazeniHotovo ();
+    void signalDownloadFinished();
     void signalError(QString errorMessage);
     void signalReceivedData(QByteArray receivedMessage);
 };

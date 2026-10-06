@@ -2,9 +2,9 @@
 
 Q_LOGGING_CATEGORY(GolemioRequestHandlerLog, "GolemioRequestHandler")
 
-GolemioRequestHandler::GolemioRequestHandler(QByteArray klic)
+GolemioRequestHandler::GolemioRequestHandler(QByteArray key)
 {
-    mKey = klic;
+    mKey = key;
     connect(&manager,&QNetworkAccessManager::finished,this,&GolemioRequestHandler::requestReceived);
 }
 
@@ -21,7 +21,7 @@ QByteArray GolemioRequestHandler::requestReceived(QNetworkReply* receivedReply)
         emit signalError(receivedReply->errorString()+" "+rawData.replace("\\",""));
     }
     this->downloadedData=rawData;
-    emit stazeniHotovo();
+    emit signalDownloadFinished();
     emit signalReceivedData(rawData);
     return rawData;
 }
@@ -31,6 +31,14 @@ void GolemioRequestHandler::startDataDownload(QString golemioAttributes)
     qCDebug(GolemioRequestHandlerLog)<<Q_FUNC_INFO;
 
     QString completeAddress=mAddress+golemioAttributes;
+
+    startDataDownloadCompleteAddress(completeAddress);
+}
+
+
+void GolemioRequestHandler::startDataDownloadCompleteAddress(QString completeAddress)
+{
+    qCDebug(GolemioRequestHandlerLog)<<Q_FUNC_INFO;
 
     qCDebug(GolemioRequestHandlerLog)<<"golemio request address: "<<completeAddress;
     QNetworkRequest newRequest;
