@@ -149,16 +149,16 @@ QVector<GolemioInfotext> GolemioDepartureBoardsV2::parseDomDocumentInfotexts()
         GolemioInfotext golemioInfotext;
 
         golemioInfotext.text = var["text"].toString();
-        golemioInfotext.text_en = var["text_en"].toString();
-        golemioInfotext.valid_from = ConnectionGolemio::qStringDoQDateTime(var["valid_from"].toString());
-        golemioInfotext.valid_to = ConnectionGolemio::qStringDoQDateTime(var["valid_to"].toString());
-        golemioInfotext.display_type = golemioInfotext.displayTypeFromQString(var["display_type"].toString());
+        golemioInfotext.textEn = var["text_en"].toString();
+        golemioInfotext.validFrom = ConnectionGolemio::qStringDoQDateTime(var["valid_from"].toString());
+        golemioInfotext.validTo = ConnectionGolemio::qStringDoQDateTime(var["valid_to"].toString());
+        golemioInfotext.displayType = golemioInfotext.displayTypeFromQString(var["display_type"].toString());
 
         QJsonArray relatedStopsArray = var["related_stops"].toArray();
 
         foreach (QJsonValue relatedStop, relatedStopsArray )
         {
-            golemioInfotext.related_stops.append(relatedStop.toString());
+            golemioInfotext.relatedStops.append(relatedStop.toString());
         }
 
         golemioInfotextList.append(golemioInfotext);
@@ -184,15 +184,78 @@ QVector<StopGolemio> GolemioDepartureBoardsV2::parseDomDocumentStops()
     {
         StopGolemio stopGolemio;
 
+        if(var.toObject().contains("location_type") )
+        {
+            stopGolemio.locationType=var["location_type"].toInt();
+        }
+
+        // parent station - unused
+
+
         if(var.toObject().contains("platform_code") )
         {
             stopGolemio.platformName=var["platform_code"].toString();
+        }
+
+        if(var.toObject().contains("stop_id") )
+        {
+            stopGolemio.stopId=var["stop_id"].toString();
+        }
+
+        if(var.toObject().contains("stop_lat") )
+        {
+            stopGolemio.stopLat=var["stop_lat"].toDouble();
+        }
+
+        if(var.toObject().contains("stop_lon") )
+        {
+            stopGolemio.stopLon=var["stop_lon"].toDouble();
         }
 
         if(var.toObject().contains("stop_name") )
         {
             stopGolemio.stopName=var["stop_name"].toString();
         }
+
+        if(var.toObject().contains("wheelchair_boarding") )
+        {
+            stopGolemio.wheelchairBoarding=var["wheelchair_boarding"].toBool();
+        }
+
+
+        if(var.toObject().contains("stop_name") )
+        {
+            stopGolemio.zoneId=var["stop_name"].toString();
+        }
+
+        // level_id unused
+
+
+        if(var.toObject().contains("zone_id") )
+        {
+            stopGolemio.zoneId=var["zone_id"].toString();
+        }
+
+
+        if(var.toObject().contains("asw_id") )
+        {
+
+            QJsonObject asw=var["asw_id"].toObject();
+            if(asw.contains("node") )
+            {
+                stopGolemio.aswStop=asw["node"].toInt();
+            }
+            if(asw.contains("stop") )
+            {
+                stopGolemio.aswNode=asw["stop"].toInt();
+            }
+        }
+
+        if(var.toObject().contains("stop_name") )
+        {
+
+        }
+
         stopGolemioList<<stopGolemio;
 
 

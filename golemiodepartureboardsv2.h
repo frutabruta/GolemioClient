@@ -19,12 +19,12 @@ public:
         DisplayTypeGeneralAlternate
     };
 
-    DisplayType display_type=DisplayTypeGeneral;
+    DisplayType displayType=DisplayTypeGeneral;
     QString text="";
-    QString text_en="";
-    QVector<QString> related_stops;
-    QDateTime valid_from;
-    QDateTime valid_to;
+    QString textEn="";
+    QVector<QString> relatedStops;
+    QDateTime validFrom;
+    QDateTime validTo;
 
     static QString displayTypeToQString(GolemioInfotext::DisplayType input);
     static GolemioInfotext::DisplayType displayTypeFromQString(QString input);

@@ -7,6 +7,10 @@ QT       += network xml
 
 
 ## Changelog
+- 20261007_1939
+  - added new parameters to StopGolemio
+  - renamed some variables in GolemioInfotext to follow camelback convention
+
 - 20261006_2127
   - added startDataDownloadCompleteAddress
   - stazeniHotovo  renamed to signalDownloadFinished
